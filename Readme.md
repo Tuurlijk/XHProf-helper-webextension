@@ -7,7 +7,7 @@ profiling with ease.
 
 How to install this extension?
 ------------------------------
-Go to the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/) and click "Add to Chrome".
+Go to the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/adnlhmmjijeflmbmlpmhilkicpnodphi) and click "Add to Chrome".
 
 How do I contribute?
 --------------------
