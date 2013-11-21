@@ -1,6 +1,7 @@
 body {
 	font-family: 'Lucida Grande', sans-serif;
 	font-size: 75%;
+	background-color: #eee;
 }
 
 ::selection {
@@ -30,11 +31,6 @@ a.txtlink {
 	text-decoration: none;
 	border-bottom: 1px dotted #330099;
 	color: #330099;
-}
-
-body {
-	background-color: #eee;
-	font-size: 0.95em;
 }
 
 #heading {
@@ -74,20 +70,6 @@ body {
 
 #footer {
 	text-align: right;
-}
-
-.hint {
-	font-size: 0.8em;
-	padding: 7px;
-	margin: -10px 0 0 0;
-	width: 150px;
-	text-align: center;
-	background-color: #c8e8c3;
-	border-radius: 6px;
-}
-
-.hint img {
-	vertical-align: bottom;
 }
 
 .customCookieName {
