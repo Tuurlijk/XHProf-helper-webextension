@@ -33,7 +33,7 @@ var XHProf = (function() {
         }
 
         // Extract the cookie content
-        return unescape(document.cookie.substring(
+        return decodeURIComponent(document.cookie.substring(
             cookieStartIndex + prefix.length, cookieEndIndex));
     }
 
@@ -47,17 +47,21 @@ var XHProf = (function() {
         // Handles messages from other extension parts
         messageListener: function(request, sender, sendResponse) {
             var newStatus,
-                idekey = 'XHProf_PROFILE';
+                cookieName = '_profile';
+
+            if (request.cookieName !== '') {
+                cookieName = request.cookieName;
+            }
 
             // Execute the requested command
             if (request.cmd === 'getStatus') {
-                newStatus = exposed.getStatus(idekey);
+                newStatus = exposed.getStatus(cookieName);
             }
             else if (request.cmd === 'toggleStatus') {
-                newStatus = exposed.toggleStatus(idekey);
+                newStatus = exposed.toggleStatus(cookieName);
             }
             else if (request.cmd === 'setStatus') {
-                newStatus = exposed.setStatus(request.status, idekey);
+                newStatus = exposed.setStatus(request.status, cookieName);
             }
 
             // Respond with the current status
@@ -65,34 +69,33 @@ var XHProf = (function() {
         },
 
         // Get current state
-        getStatus: function(idekey) {
+        getStatus: function(cookieName) {
             var status = 0;
-
-            if (getCookie('XHProf_PROFILE') === idekey) {
+            if (getCookie(cookieName) === '1') {
                 status = 1;
             }
-
             return status;
         },
 
-        // Toggle to the next state
-        toggleStatus: function(idekey) {
-            var nextStatus = (exposed.getStatus(idekey) + 1) % 4;
-            return exposed.setStatus(nextStatus, idekey);
+        // Toggle to the state
+        toggleStatus: function(cookieName) {
+            var state = exposed.getStatus(cookieName);
+            state = 1 - state;
+            return exposed.setStatus(state, cookieName);
         },
 
         // Set the state
-        setStatus: function(status, idekey) {
+        setStatus: function(status, cookieName) {
             if (status === 1) {
                 // Set profiling on
-                setCookie('XHProf_PROFILE', idekey, 24);
+                setCookie(cookieName, 1, 24);
             }
             else {
-                deleteCookie('XHProf_PROFILE');
+                deleteCookie(cookieName);
             }
 
             // Return the new status
-            return exposed.getStatus(idekey);
+            return exposed.getStatus(cookieName);
         }
     };
 

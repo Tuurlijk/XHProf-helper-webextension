@@ -11,7 +11,6 @@ function isValueInArray(arr, val) {
             return true;
         }
     }
-
     return false;
 }
 
@@ -50,6 +49,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
     // Prep some variables
     var sites = [],
+        cookieName = '',
         match,
         domain;
 
@@ -57,6 +57,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (localStorage) {
         if (localStorage.sites) {
             sites = JSON.parse(localStorage.sites);
+            cookieName = localStorage.cookieName;
         }
     }
 
@@ -74,7 +75,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         chrome.tabs.sendMessage(
             tabId,
             {
-                cmd: 'getStatus'
+                cmd: 'getStatus',
+                cookieName: cookieName
             },
             function(response) {
                 updateIcon(response.status, tabId);
@@ -84,11 +86,21 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 
 chrome.pageAction.onClicked.addListener(function(tab) {
+    var cookieName = '';
+
+    // Check if localStorage is available and get the settings out of it
+    if (localStorage) {
+        if (localStorage.cookieName) {
+            cookieName = localStorage.cookieName;
+        }
+    }
+
     // Request the current status and update the icon accordingly
     chrome.tabs.sendMessage(
         tab.id,
         {
-            cmd: 'toggleStatus'
+            cmd: 'toggleStatus',
+            cookieName: cookieName
         },
         function(response) {
             updateIcon(response.status, tab.id);

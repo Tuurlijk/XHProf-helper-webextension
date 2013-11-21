@@ -9,10 +9,9 @@ How to install this extension?
 ------------------------------
 Go to the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/) and click "Add to Chrome".
 
-
 How do I contribute?
 --------------------
-A: [Submit issues and ideas](https://github.com/tuurlijk/XHProf-helper-for-chrome/issues)
+A: [Submit issues and ideas](https://github.com/Tuurlijk/XHProf-helper-for-chrome/issues)
 
 B: [Submit a pull request](https://help.github.com/articles/using-pull-requests)
 

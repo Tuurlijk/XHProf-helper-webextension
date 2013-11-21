@@ -36,6 +36,21 @@
 		Profiling enabled
 	</p>
 
+	<h3>Cookie name</h3>
+
+	<p class="note">What should we name the profiling cookie?</p>
+
+	<p>
+		<select id="cookieName">
+			<option value="XHProf_Profile">XHProf_Profile</option>
+			<option value="_profile">_profile</option>
+			<option value="null">Other</option>
+		</select>
+		<span class="customCookieName">
+			<input type="text" id="customCookieName"/>
+		</span>
+	</p>
+
 	<h3>Domain filter</h3>
 
 	<p class="note">By default we show the bug icon on all pages, but here you
@@ -55,7 +70,7 @@
 </div>
 
 <div id="footer">
-	<a href="https://github.com/wrep/XHProf-helper-for-chrome"
+	<a href="https://github.com/Tuurlijk/XHProf-helper-for-chrome"
 	   class="contribute" target="_blank">
 		Feel free to submit ideas, bugs and pull request to our <span>Github project</span>
 	</a>
