@@ -6,6 +6,9 @@ profiling with ease.
 ## Installation
 * Go to the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/adnlhmmjijeflmbmlpmhilkicpnodphi) and click "Add to Chrome".
 
+## Options
+![](Resources/Images/Options_Firefox.png)
+
 ## Contributing
 A: [Submit issues and ideas](https://github.com/Tuurlijk/XHProf-helper-for-chrome/issues)
 
