@@ -1,9 +1,9 @@
 {
     "name": "XHProf helper",
-    "version": "1.2.0",
-    "author": "Michiel Roos",
+    "version": "1.2.1",
+    "author": "ℳichiel ℛoos",
     "description": "Easy profiling for XHProf",
-    "homepage_url": "http://www.donationbasedhosting.org/",
+    "homepage_url": "http://www.michielroos.com/",
     "manifest_version": 2,
     "minimum_chrome_version": "20",
     "permissions": [ "tabs", "*://*/*" ],
