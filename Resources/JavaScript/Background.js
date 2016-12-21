@@ -8,14 +8,27 @@ if (typeof browser === "undefined") {
     var browser = chrome;
 }
 
-function isValueInArray(arr, val) {
-    for (var i = 0; i < arr.length; i++) {
-        var re = new RegExp(arr[i], 'gi');
-        if (re.test(val)) {
-            return true;
-        }
+function getSettings() {
+    let settings = {
+        cookieName: '',
+        sites: []
+    };
+    if (localStorage.sites) {
+        settings.sites = JSON.parse(localStorage.sites);
+        settings.cookieName = localStorage.cookieName ? localStorage.cookieName : '';
     }
-    return false;
+    console.log(settings);
+    return settings;
+}
+
+function isDomainEnabled(domainList, tab) {
+    if (domainList.length === 0) {
+        return false;
+    }
+    return domainList.some(function(domain) {
+        let regex = new RegExp('https?:\/\/' + domain);
+        return (tab.url.match(regex) !== null);
+    });
 }
 
 function updateIcon(status, tabId) {
@@ -51,27 +64,10 @@ browser.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         return;
     }
 
-    // Prep some variables
-    var sites = [],
-        cookieName = '',
-        match,
-        domain;
-
-    // Check if localStorage is available and get the settings out of it
-    if (localStorage) {
-        if (localStorage.sites) {
-            sites = JSON.parse(localStorage.sites);
-            cookieName = localStorage.cookieName;
-        }
-    }
-
-    // Get the current domain out of the tab URL and check if it matches
-    // anything in the sites array
-    domain = tab.url.match(/:\/\/(.[^\/]+)/)[1];
-    match = isValueInArray(sites, domain);
+    let settings = getSettings();
 
     // Check if we have a match or don't need to match at all
-    if (match || sites.length === 0) {
+    if (settings.sites.length === 0 || isDomainEnabled(settings.sites, tab)) {
         // Show the pageAction
         browser.pageAction.show(tabId);
 
@@ -80,7 +76,7 @@ browser.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             tabId,
             {
                 cmd: 'getStatus',
-                cookieName: cookieName
+                cookieName: settings.cookieName
             },
             function(response) {
                 updateIcon(response.status, tabId);
@@ -90,21 +86,14 @@ browser.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 
 browser.pageAction.onClicked.addListener(function(tab) {
-    var cookieName = '';
-
-    // Check if localStorage is available and get the settings out of it
-    if (localStorage) {
-        if (localStorage.cookieName) {
-            cookieName = localStorage.cookieName;
-        }
-    }
+    let settings = getSettings();
 
     // Request the current status and update the icon accordingly
     browser.tabs.sendMessage(
         tab.id,
         {
             cmd: 'toggleStatus',
-            cookieName: cookieName
+            cookieName: settings.cookieName
         },
         function(response) {
             updateIcon(response.status, tab.id);

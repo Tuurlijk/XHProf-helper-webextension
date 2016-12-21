@@ -74,9 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         saveOptions();
     });
     document.getElementById('customCookieName').addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
-            saveOptions();
-        }
+        saveOptions();
     });
 
     document.getElementById('addDomain').addEventListener('click', function() {

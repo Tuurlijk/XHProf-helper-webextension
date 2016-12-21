@@ -8,10 +8,10 @@ if (typeof browser === "undefined") {
     var browser = chrome;
 }
 
-var XHProf = (function() {
+let XHProf = (function() {
     // Set a cookie
     function setCookie(name, value, hours) {
-        var exp = new Date();
+        let exp = new Date();
         exp.setTime(exp.getTime() + (hours * 60 * 60 * 1000));
         document.cookie = name + '=' + value + '; expires=' +
             exp.toGMTString() + '; path=/';
@@ -20,7 +20,7 @@ var XHProf = (function() {
     // Get the content in a cookie
     function getCookie(name) {
         // Search for the start of the goven cookie
-        var prefix = name + '=',
+        let prefix = name + '=',
             cookieStartIndex = document.cookie.indexOf(prefix),
             cookieEndIndex;
 
@@ -47,10 +47,10 @@ var XHProf = (function() {
     }
 
     // Public methods
-    var exposed = {
+    let exposed = {
         // Handles messages from other extension parts
         messageListener: function(request, sender, sendResponse) {
-            var newStatus,
+            let newStatus,
                 cookieName = '_profile';
 
             if (request.cookieName !== '') {
@@ -74,7 +74,7 @@ var XHProf = (function() {
 
         // Get current state
         getStatus: function(cookieName) {
-            var status = 0;
+            let status = 0;
             if (getCookie(cookieName) === '1') {
                 status = 1;
             }
@@ -83,7 +83,7 @@ var XHProf = (function() {
 
         // Toggle to the state
         toggleStatus: function(cookieName) {
-            var state = exposed.getStatus(cookieName);
+            let state = exposed.getStatus(cookieName);
             state = 1 - state;
             return exposed.setStatus(state, cookieName);
         },
