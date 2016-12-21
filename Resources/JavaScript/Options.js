@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let cookieName = document.getElementById('cookieName').value,
             sites = [];
 
-        if (cookieName === 'null') {
+        if (cookieName === '') {
             cookieName = document.getElementById('customCookieName').value;
         }
         localStorage.cookieName = cookieName;
@@ -52,21 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function restoreOptions() {
-        var cookieName = localStorage.cookieName,
+        let cookieName = localStorage.cookieName,
             sites = localStorage.sites;
 
-        if (!cookieName) {
-            cookieName = '_profile';
-        }
-
-        if (cookieName === '_profile' || cookieName === 'XHProf_Profile') {
-            document.getElementById('cookieName').value = cookieName;
-        }
-        else {
-            document.getElementById('cookieName').value = 'null';
-            // document.querySelector('.customCookieName').fadeIn();
-        }
-        document.getElementById('customCookieName').value = cookieName;
+        document.getElementById('cookieName').value = '';
+        document.getElementById('customCookieName').value = cookieName || '';
 
         if (sites) {
             sites = JSON.parse(sites);
@@ -82,6 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('customCookieName').addEventListener('change', function() {
         saveOptions();
+    });
+    document.getElementById('customCookieName').addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+            saveOptions();
+        }
     });
 
     document.getElementById('addDomain').addEventListener('click', function() {
