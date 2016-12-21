@@ -1,8 +1,12 @@
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict: true,
  latedef:true, noarg:true, noempty:true, nonew:true, undef:true, maxlen:256,
  strict:true, trailing:true, boss:true, browser:true, devel:true, jquery:true */
-/*global chrome, safari, SAFARI, openTab, Ember, DS, localize */
+/*global browser, chrome, document, localStorage, tabId, changeInfo, tab, openTab, localize */
+
 'use strict';
+if (typeof browser === "undefined") {
+    var browser = chrome;
+}
 
 var XHProf = (function() {
     // Set a cookie
@@ -65,7 +69,7 @@ var XHProf = (function() {
             }
 
             // Respond with the current status
-            sendResponse({ status: newStatus });
+            sendResponse({status: newStatus});
         },
 
         // Get current state
@@ -103,4 +107,4 @@ var XHProf = (function() {
 })();
 
 // Attach the message listener
-chrome.runtime.onMessage.addListener(XHProf.messageListener);
+browser.runtime.onMessage.addListener(XHProf.messageListener);

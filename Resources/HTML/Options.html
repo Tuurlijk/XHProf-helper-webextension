@@ -1,0 +1,59 @@
+<html>
+<head>
+    <title i18n-content="optionsPageTitle">OpenID Options.</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/Resources/CSS/common.css"/>
+    <link rel="stylesheet" href="/Resources/CSS/extensions.css"/>
+    <link rel="stylesheet" href="/Resources/CSS/Options.css"/>
+</head>
+<body>
+<ul id="navigation">
+    <li>
+        <a href="Options.html" class="active"><span i18n-content="optionsDisplayName">Options</span></a>
+    </li>
+    <li>
+        <a href="About.html"><span i18n-content="aboutDisplayName">About</span></a>
+    </li>
+</ul>
+<div class="page">
+    <section>
+        <p>
+            First install and configure <a target="_blank" class="txtlink"
+                                           href="http://pecl.php.net/package/xhprof">XHProf</a>.
+            Now tell XHProf to profile by clicking the little stopwatch in the
+            addressbar: enabled <img class="inlineicon" alt="" src="/Resources/Icons/StopwatchDisabled19.png"/> / disabled <img class="inlineicon" alt="" src="/Resources/Icons/Stopwatch19.png"/>
+        </p>
+
+        <div class="detail-row">
+            <div class="option-description">
+                <label class="preferences-label" for="cookieName">Cookie name</label>
+                <p class="detail-row-label preferences-description">The name of the profiling cookie.</p>
+            </div>
+            <div class="option-value">
+                <select id="cookieName">
+                    <option value="XHProf_Profile">XHProf_Profile</option>
+                    <option value="_profile">_profile</option>
+                    <option value="null">Other</option>
+                </select>
+                <label for="customCookieName"><input type="text" id="customCookieName"/></label>
+
+                <!--<input type="text" id="cookieName" size="40" placeholder="https://example.com/openidserver/users/you"/>-->
+            </div>
+        </div>
+        <div class="detail-row">
+            <div class="option-description">
+                <label class="preferences-label" for="newDomain">Domain whitelist</label>
+                <p class="preferences-description">Domains (or regexes) on which this add-on is enabled.</p>
+            </div>
+            <div class="option-value">
+                <input type="text" value="" size="20" id="newDomain" placeholder=".*\.buggyserver\.com">
+                <button class="addon-control" id="addDomain">Add</button>
+                <div id="domains"></div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="text/javascript" src="/Resources/JavaScript/OptionsContextProvider.js"></script>
+<script type="text/javascript" src="/Resources/JavaScript/Options.js"></script>
+</body>
+</html>

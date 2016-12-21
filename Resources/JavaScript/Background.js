@@ -1,8 +1,12 @@
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict: true,
  latedef:true, noarg:true, noempty:true, nonew:true, undef:true, maxlen:256,
  strict:true, trailing:true, boss:true, browser:true, devel:true, jquery:true */
-/*global chrome, safari, SAFARI, openTab, Ember, DS, localize */
+/*global browser, chrome, document, localStorage, tabId, changeInfo, tab, openTab, localize */
+
 'use strict';
+if (typeof browser === "undefined") {
+    var browser = chrome;
+}
 
 function isValueInArray(arr, val) {
     for (var i = 0; i < arr.length; i++) {
@@ -25,13 +29,13 @@ function updateIcon(status, tabId) {
     }
 
     // Update title
-    chrome.pageAction.setTitle({
+    browser.pageAction.setTitle({
         tabId: tabId,
         title: title
     });
 
     // Update image
-    chrome.pageAction.setIcon({
+    browser.pageAction.setIcon({
         tabId: tabId,
         path: {
             '19': '/Resources/Icons/' + image + '19.png',
@@ -40,7 +44,7 @@ function updateIcon(status, tabId) {
     });
 }
 
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+browser.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     // We only react on a complete load of a http(s) page,
     // only then we're sure the content.js is loaded.
     if (changeInfo.status !== 'complete' || tab.url.indexOf('http') !== 0) {
@@ -69,10 +73,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     // Check if we have a match or don't need to match at all
     if (match || sites.length === 0) {
         // Show the pageAction
-        chrome.pageAction.show(tabId);
+        browser.pageAction.show(tabId);
 
         // Request the current status and update the icon accordingly
-        chrome.tabs.sendMessage(
+        browser.tabs.sendMessage(
             tabId,
             {
                 cmd: 'getStatus',
@@ -85,7 +89,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
 });
 
-chrome.pageAction.onClicked.addListener(function(tab) {
+browser.pageAction.onClicked.addListener(function(tab) {
     var cookieName = '';
 
     // Check if localStorage is available and get the settings out of it
@@ -96,7 +100,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     }
 
     // Request the current status and update the icon accordingly
-    chrome.tabs.sendMessage(
+    browser.tabs.sendMessage(
         tab.id,
         {
             cmd: 'toggleStatus',
