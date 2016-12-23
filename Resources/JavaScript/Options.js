@@ -52,18 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function restoreOptions() {
-        let cookieName = localStorage.cookieName,
-            sites = localStorage.sites;
-
         document.getElementById('cookieName').value = '';
-        document.getElementById('customCookieName').value = cookieName || '';
+        document.getElementById('customCookieName').value = localStorage.cookieName || '';
 
-        if (sites) {
-            sites = JSON.parse(sites);
-            sites.forEach(function(domain) {
-                addElement(domain, 'newDomain', 'domains');
-            });
-        }
+        let sites = localStorage.sites ? JSON.parse(localStorage.sites) : [];
+        sites.forEach(function(domain) {
+            addElement(domain, 'newDomain', 'domains');
+        });
     }
 
     document.getElementById('cookieName').addEventListener('change', function() {

@@ -9,15 +9,10 @@ if (typeof browser === "undefined") {
 }
 
 function getSettings() {
-    let settings = {
-        cookieName: '',
-        sites: []
+    return {
+        cookieName: localStorage.cookieName ? localStorage.cookieName : '',
+        sites: localStorage.sites ? JSON.parse(localStorage.sites) : []
     };
-    if (localStorage.sites) {
-        settings.sites = JSON.parse(localStorage.sites);
-        settings.cookieName = localStorage.cookieName ? localStorage.cookieName : '';
-    }
-    return settings;
 }
 
 function isDomainEnabled(domainList, tab) {
