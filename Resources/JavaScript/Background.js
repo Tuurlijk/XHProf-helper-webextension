@@ -17,7 +17,6 @@ function getSettings() {
         settings.sites = JSON.parse(localStorage.sites);
         settings.cookieName = localStorage.cookieName ? localStorage.cookieName : '';
     }
-    console.log(settings);
     return settings;
 }
 
