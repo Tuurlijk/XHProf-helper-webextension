@@ -139,15 +139,13 @@ select {
     border-radius: 2px;
     font-family: inherit;
     font-size: inherit;
-    padding: 5px 20px 5px 10px;
+    padding: 2px 20px 2px 5px;
 }
 
 :-webkit-any(button, input[type='button'], input[type='submit']):not(.custom-appearance), select {
-    min-height: 2em;
+    min-height: 29px;
     min-width: 4em;
-    padding-top: 1px;
     padding-bottom: 1px;
-    padding-bottom: 2px;
 }
 
 :-webkit-any(button, input[type='button'], input[type='submit']):not(.custom-appearance), select, input[type='checkbox'], input[type='radio'] {
