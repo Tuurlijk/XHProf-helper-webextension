@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.cookieName = cookieName;
 
         document.getElementById('domains').childNodes.forEach(function(domain) {
-            sites.push(domain.innerText);
+            sites.push(domain.textContent);
         });
         localStorage.sites = JSON.stringify(sites);
     }
